@@ -12,5 +12,9 @@ import retrofit2.http.GET;
 public interface CoindeskClient {
 
     @GET("USD.json")
+    //TODO: this is wrong. see DisplayActivity
     Call<Gson> getPrice();
+
+    @GET("USD.json")
+    Call<CurrentPrice> getCurrentPrice();
 }
