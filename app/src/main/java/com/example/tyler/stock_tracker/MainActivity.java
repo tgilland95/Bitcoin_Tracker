@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class Main_Activity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -14,7 +14,7 @@ public class Main_Activity extends AppCompatActivity {
   }
 
   public void actOne(View view){
-    Intent intent = new Intent(this, a_bitcoin_api.class);
+    Intent intent = new Intent(this, DisplayActivity.class);
     startActivity(intent);
   }
 

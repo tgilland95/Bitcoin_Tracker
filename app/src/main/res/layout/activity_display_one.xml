@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="com.example.tyler.stock_tracker.a_bitcoin_api">
+  tools:context="com.example.tyler.stock_tracker.DisplayActivity">
 
   <Button
     android:id="@+id/btnHome"
@@ -47,4 +47,5 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.512"
     app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
