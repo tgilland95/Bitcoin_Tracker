@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.gson.Gson;
+import com.readystatesoftware.chuck.ChuckInterceptor;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,13 +53,23 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     public void apiCall(View view) {
+
+        // You should move this, and the Retrofit building somewhere else. You only need to do this once.
+        // If you leave it here it will happen every time the button gets pressed.
+
+        // The ChuckInterceptor is just a cool add on. It will create a notification on your device that shows you the network calls that the app makes.
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new ChuckInterceptor(this))
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-
         CoindeskClient coindeskClient = retrofit.create(CoindeskClient.class);
+
 
 
         //TODO: Fix this
