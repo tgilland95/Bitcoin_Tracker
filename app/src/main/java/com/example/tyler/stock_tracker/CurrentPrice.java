@@ -1,50 +1,223 @@
 package com.example.tyler.stock_tracker;
 
-/**
- * Created by jordan on 8/11/17.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class CurrentPrice {
 
+    @SerializedName("time")
+    @Expose
+    private Time time;
+    @SerializedName("disclaimer")
+    @Expose
+    private String disclaimer;
+    @SerializedName("bpi")
+    @Expose
+    private Bpi bpi;
 
-    // This is what the response from the server looks like.
-    private String sampleJson = "" +
-            "{\n" +
-            "time: {\n" +
-            "updated: \"Aug 11, 2017 17:06:00 UTC\",\n" +
-            "updatedISO: \"2017-08-11T17:06:00+00:00\",\n" +
-            "updateduk: \"Aug 11, 2017 at 18:06 BST\"\n" +
-            "},\n" +
-            "disclaimer: \"This data was produced from the CoinDesk Bitcoin Price Index (USD). Non-USD currency data converted using hourly conversion rate from openexchangerates.org\",\n" +
-            "bpi: {\n" +
-            "USD: {\n" +
-            "code: \"USD\",\n" +
-            "rate: \"3,548.2050\",\n" +
-            "description: \"United States Dollar\",\n" +
-            "rate_float: 3548.205\n" +
-            "}\n" +
-            "}\n" +
-            "}";
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public CurrentPrice() {
+    }
+
+    /**
+     *
+     * @param time
+     * @param disclaimer
+     * @param bpi
+     */
+    public CurrentPrice(Time time, String disclaimer, Bpi bpi) {
+        super();
+        this.time = time;
+        this.disclaimer = disclaimer;
+        this.bpi = bpi;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public String getDisclaimer() {
+        return disclaimer;
+    }
+
+    public void setDisclaimer(String disclaimer) {
+        this.disclaimer = disclaimer;
+    }
+
+    public Bpi getBpi() {
+        return bpi;
+    }
+
+    public void setBpi(Bpi bpi) {
+        this.bpi = bpi;
+    }
 
 
-    // You will need to define here in java:
-    // a Time object
-    // disclaimer property of type string
-    // bpi object
 
+    public class Bpi {
 
-    // the time object has 3 string properties
+        @SerializedName("USD")
+        @Expose
+        private USD uSD;
 
-    // the bpi object has an object called USD
-    // USD has 4 properties, 3 string, 1 double
+        /**
+         * No args constructor for use in serialization
+         *
+         */
+        public Bpi() {
+        }
 
+        /**
+         *
+         * @param uSD
+         */
+        public Bpi(USD uSD) {
+            super();
+            this.uSD = uSD;
+        }
 
+        public USD getUSD() {
+            return uSD;
+        }
 
+        public void setUSD(USD uSD) {
+            this.uSD = uSD;
+        }
 
-    // make sure you have getters for each of these objects and properties.
+    }
 
+    public class Time {
 
+        @SerializedName("updated")
+        @Expose
+        private String updated;
+        @SerializedName("updatedISO")
+        @Expose
+        private String updatedISO;
+        @SerializedName("updateduk")
+        @Expose
+        private String updateduk;
 
+        /**
+         * No args constructor for use in serialization
+         */
+        public Time() {
+        }
 
-    // after you do that google jsonschema2pojo
+        /**
+         * @param updatedISO
+         * @param updated
+         * @param updateduk
+         */
+        public Time(String updated, String updatedISO, String updateduk) {
+            super();
+            this.updated = updated;
+            this.updatedISO = updatedISO;
+            this.updateduk = updateduk;
+        }
+
+        public String getUpdated() {
+            return updated;
+        }
+
+        public void setUpdated(String updated) {
+            this.updated = updated;
+        }
+
+        public String getUpdatedISO() {
+            return updatedISO;
+        }
+
+        public void setUpdatedISO(String updatedISO) {
+            this.updatedISO = updatedISO;
+        }
+
+        public String getUpdateduk() {
+            return updateduk;
+        }
+
+        public void setUpdateduk(String updateduk) {
+            this.updateduk = updateduk;
+        }
+
+    }
+
+    public class USD {
+
+        @SerializedName("code")
+        @Expose
+        private String code;
+        @SerializedName("rate")
+        @Expose
+        private String rate;
+        @SerializedName("description")
+        @Expose
+        private String description;
+        @SerializedName("rate_float")
+        @Expose
+        private Double rateFloat;
+
+        /**
+         * No args constructor for use in serialization
+         *
+         */
+        public USD() {
+        }
+
+        /**
+         *
+         * @param rateFloat
+         * @param rate
+         * @param description
+         * @param code
+         */
+        public USD(String code, String rate, String description, Double rateFloat) {
+            super();
+            this.code = code;
+            this.rate = rate;
+            this.description = description;
+            this.rateFloat = rateFloat;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getRate() {
+            return rate;
+        }
+
+        public void setRate(String rate) {
+            this.rate = rate;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public Double getRateFloat() {
+            return rateFloat;
+        }
+
+        public void setRateFloat(Double rateFloat) {
+            this.rateFloat = rateFloat;
+        }
+
+    }
+
 }

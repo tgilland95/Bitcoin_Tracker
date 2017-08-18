@@ -22,30 +22,28 @@
   <Button
 
     android:id="@+id/btnApiTest"
-    android:onClick="apiCall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="40dp"
     android:text="@string/test_api"
-
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/btnHome" />
 
   <TextView
-    android:id="@+id/textView_Response"
-    android:layout_width="329dp"
-    android:layout_height="271dp"
-    android:layout_marginBottom="32dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:fontFamily="sans-serif"
-    android:text="@string/nothing_yet"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.512"
-    app:layout_constraintStart_toStartOf="parent" />
+      android:id="@+id/textView_response"
+      android:layout_width="329dp"
+      android:layout_height="271dp"
+      android:layout_marginBottom="47dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:fontFamily="sans-serif"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:layout_editor_absoluteX="16dp" />
 
 </android.support.constraint.ConstraintLayout>

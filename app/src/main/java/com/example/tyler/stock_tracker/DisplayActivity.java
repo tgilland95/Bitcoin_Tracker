@@ -1,14 +1,16 @@
 package com.example.tyler.stock_tracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import okhttp3.OkHttpClient;
@@ -20,122 +22,98 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class DisplayActivity extends AppCompatActivity {
+    public static final String KEY_RATE = "KeyRate";
+    String BASE_URL = "https://api.coindesk.com/v1/bpi/currentprice/";
 
     private static final String TAG = DisplayActivity.class.getSimpleName();
-    private static final String URL = "https://api.coindesk.com/v1/bpi/currentprice/";
+    private CoindeskClient coindeskClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_one);
+        setCurrentRateText();
 
-
-        //TODO: Currently the methods goHome, and apiCall never get called.
-
-
-        // We should get instances of the buttons as Java objects, and then setup a click listener
-//        Button apiCallButton = findViewById();
-
-        // That won't work, but its close. put the correct parameter in findViewById.
-
-        // Click listener time...
-        // Google: Android on click listener example
-
-
-        // Then put the apiCall method into the body of the onClick
-
-
-    }
-
-    public void goHome(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void apiCall(View view) {
-
-        // You should move this, and the Retrofit building somewhere else. You only need to do this once.
-        // If you leave it here it will happen every time the button gets pressed.
-
-        // The ChuckInterceptor is just a cool add on. It will create a notification on your device that shows you the network calls that the app makes.
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new ChuckInterceptor(this))
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        coindeskClient = retrofit.create(CoindeskClient.class);
+        //TODO: Currently the methods goHome, and apiCall never get called.
 
-        CoindeskClient coindeskClient = retrofit.create(CoindeskClient.class);
+
+        Button apiCallButton = (Button) findViewById(R.id.btnApiTest);
+        apiCallButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                apiCall();
+            }
+        });
+    }
+
+    private void setCurrentRateText() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String string = preferences.getString(DisplayActivity.KEY_RATE, "");
+        TextView textViewResponse =(TextView) findViewById(R.id.textView_response);
+        if (string.equals("")) {
+            textViewResponse.setText("No Response Yet");
+        }
+        else{
+            textViewResponse.setText(string);
+        }
+    }
+
+    public void goHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void apiCall() {
 
 
 
         //TODO: Fix this
-        // this is wrong.
-        // Why? because you don't want to get a GSON object back. you want to get the JSON response back as an object.
-        Call<Gson> call = coindeskClient.getPrice();
-
-        // You'll want to do something like this
-        Call<CurrentPrice> call2 = coindeskClient.getCurrentPrice();
-
-        //You will need to create an object called CurrentPrice.
-        // The CurrentPrice object will be a mirror of the JSON object you get back from the server.
-
-
-
-        // This is all messed up too cause it thinks we are getting back a GSON object, which we don't want. we want CurrentPrice
-        call.enqueue(new Callback<Gson>() {
-            @Override
-            public void onResponse(@NonNull Call<Gson> call, @NonNull Response<Gson> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Gson> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure() called with: call = [" + call + "]", t);
-
-            }
-        });
-
-
-
-
+        Call<CurrentPrice> call2 = coindeskClient.getPrice();
         // Quiz question. whats the difference between these two?
-//        call2.execute();
-//        call2.enqueue();
-
+        //        call2.execute();
+        //        call2.enqueue();
         // which is better? why?
+            /*
+            * Execute will happen immediately and won't let anything else happen until it's completed.
+            * enqueue adds it to the que so it will run wen any other calls have finished
+            * I feel like enqueue would be safer and prevent a lot of issues, making it better.
+            */
 
 
         call2.enqueue(new Callback<CurrentPrice>() {
             @Override
             public void onResponse(@NonNull Call<CurrentPrice> call, @NonNull Response<CurrentPrice> response) {
+
                 Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
 
 
-                // At this point the network call has been made. The json has been converted in to a pojo. and we can use that to update the UI or something.
+                CurrentPrice price = response.body();
 
-                // Display the current price to the user.
+                String currentRate = price.getBpi().getUSD().getRate();
+                TextView textViewResponse = (TextView) findViewById(R.id.textView_response);
+                textViewResponse.setText(currentRate);
 
-                // Something like this...
-//                float price = CurrentPrice.getBpi().getUsd().getRateFloat();
-
-                // This just gives us a powerful way to format strings. %1$s is the first var, as a string.
-//                String priceString = String.format("$ %1$s", price);
-//                mCurrentPriceTextView.setText(priceString);
-
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(DisplayActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(KEY_RATE, currentRate);
+                editor.apply();
             }
 
             @Override
             public void onFailure(@NonNull Call<CurrentPrice> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure() called with: call = [" + call + "]", t);
-
             }
         });
-
-
     }
 }
 
