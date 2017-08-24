@@ -21,11 +21,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class DisplayActivity extends AppCompatActivity {
+public class CurrentPriceActivity extends AppCompatActivity {
     public static final String KEY_RATE = "KeyRate";
     String BASE_URL = "https://api.coindesk.com/v1/bpi/currentprice/";
 
-    private static final String TAG = DisplayActivity.class.getSimpleName();
+    private static final String TAG = CurrentPriceActivity.class.getSimpleName();
     private CoindeskClient coindeskClient;
 
 
@@ -58,7 +58,7 @@ public class DisplayActivity extends AppCompatActivity {
 
     private void setCurrentRateText() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String string = preferences.getString(DisplayActivity.KEY_RATE, "");
+        String string = preferences.getString(CurrentPriceActivity.KEY_RATE, "");
         TextView textViewResponse =(TextView) findViewById(R.id.textView_response);
         if (string.equals("")) {
             textViewResponse.setText("No Response Yet");
@@ -77,7 +77,6 @@ public class DisplayActivity extends AppCompatActivity {
 
 
 
-        //TODO: Fix this
         Call<CurrentPrice> call2 = coindeskClient.getPrice();
         // Quiz question. whats the difference between these two?
         //        call2.execute();
@@ -103,7 +102,7 @@ public class DisplayActivity extends AppCompatActivity {
                 TextView textViewResponse = (TextView) findViewById(R.id.textView_response);
                 textViewResponse.setText(currentRate);
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(DisplayActivity.this);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentPriceActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(KEY_RATE, currentRate);
                 editor.apply();
