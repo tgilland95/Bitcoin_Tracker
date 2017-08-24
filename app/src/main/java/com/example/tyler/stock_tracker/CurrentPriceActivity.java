@@ -32,7 +32,7 @@ public class CurrentPriceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_one);
+        setContentView(R.layout.activity_current_price);
         setCurrentRateText();
 
         OkHttpClient client = new OkHttpClient.Builder()
@@ -59,7 +59,7 @@ public class CurrentPriceActivity extends AppCompatActivity {
     private void setCurrentRateText() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String string = preferences.getString(CurrentPriceActivity.KEY_RATE, "");
-        TextView textViewResponse =(TextView) findViewById(R.id.textView_response);
+        TextView textViewResponse =(TextView) findViewById(R.id.textView_current_price_value);
         if (string.equals("")) {
             textViewResponse.setText("No Response Yet");
         }
@@ -99,7 +99,7 @@ public class CurrentPriceActivity extends AppCompatActivity {
                 CurrentPrice price = response.body();
 
                 String currentRate = price.getBpi().getUSD().getRate();
-                TextView textViewResponse = (TextView) findViewById(R.id.textView_response);
+                TextView textViewResponse = (TextView) findViewById(R.id.textView_current_price_value);
                 textViewResponse.setText(currentRate);
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentPriceActivity.this);

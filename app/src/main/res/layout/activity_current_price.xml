@@ -4,17 +4,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="com.example.tyler.stock_tracker.DisplayActivity">
+  tools:context="com.example.tyler.stock_tracker.CurrentPriceActivity">
 
   <Button
-    android:id="@+id/btnHome"
+    android:id="@+id/home_btn"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="16dp"
     android:onClick="goHome"
-    android:text="@string/home"
+    android:text="@string/back"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
@@ -26,14 +26,15 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="40dp"
+    android:layout_marginTop="532dp"
     android:text="@string/test_api"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/btnHome" />
+    app:layout_constraintTop_toBottomOf="@+id/home_btn"
+      tools:layout_editor_absoluteX="976dp" />
 
   <TextView
-      android:id="@+id/textView_response"
+      android:id="@+id/textView_current_price_value"
       android:layout_width="329dp"
       android:layout_height="271dp"
       android:layout_marginBottom="47dp"

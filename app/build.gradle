@@ -22,19 +22,18 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     // Retrofit
+    // OkHttp
+    // ButterKnife
+    // Chuck
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    // OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    // ButterKnife
     compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'com.android.support:support-annotations:26.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    // Chuck
     debugCompile 'com.readystatesoftware.chuck:library:1.0.4'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.0.4'
-    compile 'com.android.support:support-annotations:26.0.1'
 }

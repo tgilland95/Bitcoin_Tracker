@@ -1,8 +1,13 @@
 package com.example.tyler.stock_tracker;
 
-/**
- * Created by tyler on 8/23/2017.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-class ChartActivity {
+public class ChartActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chart);
+    }
 }
