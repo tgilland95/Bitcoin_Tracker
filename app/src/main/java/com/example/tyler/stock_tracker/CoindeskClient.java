@@ -11,7 +11,6 @@ import retrofit2.http.Headers;
 public interface CoindeskClient {
 
     @GET("USD.json")
-        //TODO: this is wrong. see DisplayActivity
     Call<CurrentPrice> getPrice();
 
     @Headers("Content-Type: application/json")

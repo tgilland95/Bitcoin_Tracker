@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String string = preferences.getString(CurrentPriceActivity.KEY_RATE, "");
+        preferences.getString(CurrentPriceActivity.KEY_RATE, "");
 
 
     }

@@ -45,7 +45,6 @@ public class CurrentPriceActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         coindeskClient = retrofit.create(CoindeskClient.class);
-        //TODO: Currently the methods goHome, and apiCall never get called.
 
 
         Button apiCallButton = (Button) findViewById(R.id.btnApiTest);
@@ -55,16 +54,22 @@ public class CurrentPriceActivity extends AppCompatActivity {
             }
         });
     }
+    protected void onResume(){
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.getString(CurrentPriceActivity.KEY_RATE, "");
+
+    }
 
     private void setCurrentRateText() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String string = preferences.getString(CurrentPriceActivity.KEY_RATE, "");
+        String string =  preferences.getString(CurrentPriceActivity.KEY_RATE, "");
         TextView textViewResponse =(TextView) findViewById(R.id.textView_current_price_value);
         if (string.equals("")) {
             textViewResponse.setText("No Response Yet");
         }
         else{
-            textViewResponse.setText(string);
+            textViewResponse.setText("USD: $" + string);
         }
     }
 
@@ -100,7 +105,7 @@ public class CurrentPriceActivity extends AppCompatActivity {
 
                 String currentRate = price.getBpi().getUSD().getRate();
                 TextView textViewResponse = (TextView) findViewById(R.id.textView_current_price_value);
-                textViewResponse.setText(currentRate);
+                textViewResponse.setText("USD: $" + currentRate);
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentPriceActivity.this);
                 SharedPreferences.Editor editor = preferences.edit();
